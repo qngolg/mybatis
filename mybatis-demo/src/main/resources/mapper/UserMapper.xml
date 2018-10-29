@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qngolg.mapper.UserMapper">
+
+    <!-- 自定义返回结果集 -->
+    <resultMap id="userMap" type="com.qngolg.bean.User">
+        <id property="id" column="id" javaType="java.lang.Integer"></id>
+        <result property="username" column="username" javaType="java.lang.String"></result>
+        <result property="password" column="password" javaType="java.lang.String"></result>
+        <result property="account" column="account" javaType="java.lang.Double"></result>
+    </resultMap>
+
+    <!--
+        在各种标签的id属性必须和接口的方法名相同，id属性必须是唯一的
+        parameterType 表示查询时使用的参数类型，
+        resultType 表示查询返回的结果集类型
+        useGenerateKeys:true 仅对insert有用，这会告诉mybatis使用jdbc的useGenerateKeys方法 主键自增
+        keyProperty 标记一个属性， MyBatis 会通过 getGeneratedKeys或者通过 insert 语句的 selectKey 子元素设置它的值。默认：不设置。
+    -->
+    <!--#{}中的内容，为占位符，当参数为某个JavaBean时，表示放置该Bean对象的属性值  -->
+    <!--#{}可以防止sql注入的，${}是不能防止sql注入的 -->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(username,password,account)
+        values (#{username},#{password},#{account})
+    </insert>
+
+    <select id="selectAllUser" resultMap="userMap">
+        select * from t_user
+    </select>
+</mapper>

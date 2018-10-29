@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入外部配置文件 -->
+    <properties resource="mysql.properties"/>
+
+    <environments default="cybatis">
+        <environment id="cybatis">
+            <!-- type="JDBC" 代表使用JDBC的提交和回归来管理事务 -->
+            <transactionManager type="JDBC"></transactionManager>
+
+            <!-- mybatis提供了三种数据源类型，分别是POOLED,UNPOOLED,JDNI -->
+            <!-- pooled 表示支持jdbc数据源连接池-->
+            <!-- UNPOOLED 表示不支持数据源连接池 -->
+            <!-- JUNI 表示支持外部数据源连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+        <!--  告知映射文件方式1，一个一个的配置 -->
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+        <!-- 告知文件位置 -->
+        <!--<package name="/mapper/"></package>-->
+    </mappers>
+
+</configuration>
